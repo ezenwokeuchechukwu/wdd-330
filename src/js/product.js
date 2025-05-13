@@ -1,18 +1,37 @@
-import { setLocalStorage } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import { renderListWithTemplate } from './utils.mjs';
 
-const dataSource = new ProductData("tents");
-
-function addProductToCart(product) {
-  setLocalStorage("so-cart", product);
+function productCardTemplate(product) {
+  return `
+    <li class="product-card">
+      <a href="/src/product_pages/index.html?id=${product.id}">
+        <img src="/images/tents/${product.image}" alt="${product.name}" />
+        <h3 class="card__brand">${product.brand}</h3>
+        <h2 class="card__name">${product.name}</h2>
+        <p class="product-card__price">$${product.price}</p>
+      </a>
+    </li>
+  `;
 }
-// add to cart button event handler
-async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
-}
 
-// add listener to Add to Cart button
-document
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
+export default class ProductList {
+  constructor(category, dataSource, listElement) {
+    this.category = category;
+    this.dataSource = dataSource;
+    this.listElement = listElement;
+  }
+
+  async init() {
+    const list = await this.dataSource.getData(this.category);
+    this.renderList(list);
+  }
+
+  renderList(list) {
+    renderListWithTemplate(
+      productCardTemplate,
+      this.listElement,
+      list,
+      'afterbegin',
+      true
+    );
+  }
+}
