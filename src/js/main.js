@@ -1,5 +1,6 @@
 import { loadHeaderFooter } from './utils.mjs';
 import ProductData from './ProductData.mjs';
+import ProductList from './productList.mjs';
 
 // Load header and footer on page load
 loadHeaderFooter();
@@ -11,5 +12,5 @@ const dataSource = new ProductData('/json/tents.json');
 const tentListElement = document.querySelector('.product-list');
 
 // Create a ProductList instance and initialize it to render the product cards
-const tentList = new ProductData('tents', dataSource, tentListElement);
+const tentList = new ProductList('tents', dataSource, tentListElement);
 tentList.init();
