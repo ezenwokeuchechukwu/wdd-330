@@ -1,16 +1,12 @@
 <!doctype html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Sleep Outside | Checkout</title>
-
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/checkout.js" type="module"></script>
   </head>
-
   <body>
     <header class="divider">
       <div class="logo">
@@ -56,15 +52,41 @@
       </div>
     </header>
 
-    <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
+     <main class="divider">
+      <section class="checkout">
+        <h2>Review & Place Your Order</h2>
+
+        <!-- 🧾 Checkout Form -->
+        <form id="checkoutForm">
+          <h3>Billing Information</h3>
+          <input name="fname" placeholder="First Name" required />
+          <input name="lname" placeholder="Last Name" required />
+          <input name="street" placeholder="Street Address" required />
+          <input name="city" placeholder="City" required />
+          <input name="state" placeholder="State" required />
+          <input name="zip" placeholder="ZIP Code" id="zip" required />
+
+          <h3>Payment Information</h3>
+          <input name="cardNumber" placeholder="Card Number" required />
+          <input name="expiration" placeholder="Expiration Date" required />
+          <input name="code" placeholder="Security Code" required />
+
+          <button type="submit">Checkout</button>
+        </form>
+
+        <!-- 🧾 Order Summary -->
+        <aside class="order-summary">
+          <h3>Order Summary</h3>
+          <p>Subtotal: <span id="subtotal">$0.00</span></p>
+          <p>Tax (6%): <span id="tax">$0.00</span></p>
+          <p>Shipping: <span id="shipping">$0.00</span></p>
+          <p><strong>Total: <span id="total">$0.00</span></strong></p>
+        </aside>
       </section>
     </main>
 
     <footer>
-      &copy;2025 ⛺ SleepOutside ⛺ WDD 330 ⛺ BYU-Idaho for BYU-Pathway
-      Worldwide Online
+      &copy;2025 ⛺ SleepOutside ⛺ WDD 330 ⛺ BYU-Idaho for BYU-Pathway Worldwide
     </footer>
   </body>
 </html>
