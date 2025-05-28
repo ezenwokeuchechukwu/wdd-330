@@ -46,7 +46,8 @@ export default class CheckoutProcess {
     }));
   }
 
-  async checkout(form) {
+ async checkout(form) {
+  try {
     const order = formDataToJSON(form);
     order.orderDate = new Date().toISOString();
     order.items = this.packageItems(this.list);
@@ -55,7 +56,15 @@ export default class CheckoutProcess {
     order.shipping = this.shipping;
 
     const service = new ExternalServices();
-    const response = await service.checkout(order);
-    return response;
+    await service.checkout(order);
+
+    // ✅ Success path
+    localStorage.removeItem('so-cart');
+    window.location.href = '/checkout/success.html';
+  } catch (err) {
+    // Optionally log error to a custom logger or handle it silently
+    alert(err.message?.message || 'Something went wrong. Please try again.');
   }
+}
+
 }

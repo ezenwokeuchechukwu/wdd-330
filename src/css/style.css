@@ -256,6 +256,17 @@ button {
     grid-template-columns: 150px auto 15%;
   }
 }
+.alert-box {
+  background-color: #e6ffed;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+}
+
 
 footer {
   font-size: var(--small-font);

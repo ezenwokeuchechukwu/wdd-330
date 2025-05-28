@@ -38,3 +38,21 @@ export function renderListWithTemplate(template, parentElement, list, position =
   }
   parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement('div');
+  alert.classList.add('alert-box');
+  alert.innerHTML = `<p>${message}</p>`;
+
+  const main = document.querySelector('main');
+  main.prepend(alert);
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Optional: Auto-remove after 3 seconds
+  setTimeout(() => {
+    alert.remove();
+  }, 3000);
+}
+

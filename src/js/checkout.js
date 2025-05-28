@@ -1,32 +1,36 @@
 import CheckoutProcess from './CheckoutProcess.mjs';
 
-// Initialize the checkout process with cart key and summary selector
 const checkout = new CheckoutProcess('so-cart', '.order-summary');
 checkout.init();
 
-// Recalculate totals after ZIP is entered
+// Recalculate totals when ZIP is entered
 document.getElementById('zip').addEventListener('blur', () => {
   checkout.calculateOrderTotal();
 });
 
-// Handle form submission
-document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+// Form submit handler with validation
+const form = document.getElementById('checkoutForm');
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  // HTML validation runs automatically before this
+  if (!form.checkValidity()) {
+    form.reportValidity(); // Optional, helps show browser errors
+    return;
+  }
+
   try {
-    const response = await checkout.checkout(e.target);
+    const response = await checkout.checkout(form);
 
     if (response && response.success) {
-      alert('Order submitted successfully!');
-      // You could redirect to a success page here
-      // window.location.href = '/success.html';
+      // ✅ Success: clear cart and redirect
+      localStorage.removeItem('so-cart');
+      window.location.href = '/checkout/success.html';
     } else {
       alert('Order failed. Please try again.');
     }
-
-    //    console.log('Server Response:', response);
   } catch (error) {
-    // console.error('Checkout error:', error);
-    alert('There was a problem submitting your order. Please try again.');
+    alert(error.message.message || 'There was a problem submitting your order.');
   }
 });
