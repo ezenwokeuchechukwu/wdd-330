@@ -32,5 +32,12 @@
     "last 3 opera versions",
     "last 3 ios_saf versions",
     "last 3 safari versions"
-  ]
+  ],
+  "dependencies": {
+    "@react-google-maps/api": "^2.20.6",
+    "axios": "^1.9.0",
+    "firebase": "^11.8.1",
+    "react-paystack": "^6.0.0",
+    "react-router-dom": "^7.6.2"
+  }
 }
