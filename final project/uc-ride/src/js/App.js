@@ -7,6 +7,8 @@ import Booking from "./pages/Booking";
 import Dashboard from "./pages/Dashboard";
 import History from "./pages/History";
 
+// 👇 Removed unused ProductData import
+
 function App() {
   return (
     <Router>
