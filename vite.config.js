@@ -1,16 +1,22 @@
-import { resolve } from 'path';
+// vite.config.js
+import { defineConfig, loadEnv } from 'vite'
+import react from '@vitejs/plugin-react'
 
-export default {
-  root: 'src', // Tell Vite to serve from src/
-  build: {
-    outDir: '../dist', // Output outside the root
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'src/index.html'),
-        cart: resolve(__dirname, 'src/cart/index.html'),
-        checkout: resolve(__dirname, 'src/checkout/index.html'),
-        product: resolve(__dirname, 'src/product_pages/index.html'),
-      },
+export default defineConfig(({ mode }) => {
+  // Load environment variables based on mode (e.g. development, production)
+  const env = loadEnv(mode, process.cwd());
+
+  return {
+    plugins: [react()],
+    define: {
+      __APP_ENV__: JSON.stringify(env.APP_ENV), // optional use of custom env variable
     },
-  },
-};
+    server: {
+      host: '0.0.0.0', // Expose Vite dev server to your local network
+      port: 3000       // Set your preferred port
+    },
+    build: {
+      outDir: 'dist'   // Output directory for production build
+    }
+  };
+});
